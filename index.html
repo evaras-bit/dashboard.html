@@ -373,6 +373,28 @@
   .tab-btn.active svg { stroke: var(--white); }
   .tab-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
+  /* Divisor antes de logout */
+  .tab-divider {
+    width: 1px;
+    background: var(--line);
+    margin: 0 6px;
+    align-self: stretch;
+    flex-shrink: 0;
+  }
+
+  /* Botón Cerrar sesión: más discreto */
+  .tab-btn.tab-logout {
+    color: var(--muted);
+    opacity: 0.6;
+    font-size: 11px;
+  }
+  .tab-btn.tab-logout:hover {
+    color: var(--teal);
+    opacity: 1;
+    background: rgba(28,60,68,0.04);
+  }
+  .tab-btn.tab-logout svg { width: 13px; height: 13px; }
+
   .tab-content {
     display: none;
     background: var(--white);
@@ -850,60 +872,62 @@
     .dashboard-title .dashboard-meta { font-size: 9px; }
 
     /* CONTAINER: aprovechar al máximo el viewport */
-    .container { padding: 0 10px 60px; }
+    .container { padding: 0 12px 60px; }
 
-    /* KPIs: 2 columnas con gap pequeño */
+    /* KPIs: 2 columnas con gap moderado */
     .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 {
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
+      gap: 10px;
     }
     .kpis.kpis-1 { grid-template-columns: 1fr; }
 
     /* KPI highlight (saldo) */
-    .kpi.kpi-highlight { padding: 18px 14px; }
+    .kpi.kpi-highlight { padding: 22px 18px; }
     .kpi.kpi-highlight .kpi-value {
-      font-size: 22px;
+      font-size: 26px;
       letter-spacing: -0.02em;
       white-space: nowrap;
       font-variant-numeric: tabular-nums;
     }
-    .kpi.kpi-highlight .kpi-unit { font-size: 12px; }
+    .kpi.kpi-highlight .kpi-unit { font-size: 13px; }
     .kpi.kpi-highlight .kpi-sub {
-      font-size: 10px;
-      line-height: 1.4;
+      font-size: 11px;
+      line-height: 1.45;
     }
 
     /* KPI normales: tamaño que cabe en 2 cols sin cortar */
     .kpi {
-      padding: 12px 10px;
+      padding: 14px 11px;
       min-width: 0;
       overflow: hidden;
     }
     .kpi-label {
-      font-size: 8.5px;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-      line-height: 1.2;
+      font-size: 9px;
+      letter-spacing: 0.10em;
+      margin-bottom: 8px;
+      line-height: 1.25;
     }
     .kpi-value {
-      font-size: 14px;
+      font-size: 16px;
       font-variant-numeric: tabular-nums;
       font-feature-settings: "tnum";
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       line-height: 1.2;
     }
-    .kpi-unit { font-size: 10px; }
+    /* Override: en móvil kpis-5 también usa 16px */
+    .kpis.kpis-5 .kpi-value { font-size: 16px; }
+    .kpi-unit { font-size: 11px; margin-left: 2px; }
     .kpi-sub {
-      font-size: 9.5px;
+      font-size: 10px;
       white-space: normal;
       overflow-wrap: break-word;
       word-break: normal;
       hyphens: none;
-      line-height: 1.35;
-      margin-top: 5px;
+      line-height: 1.4;
+      margin-top: 6px;
     }
 
     /* Cobro cards: evitar desborde del "week" largo */
@@ -959,6 +983,17 @@
       font-size: 13px;
     }
     .tab-btn svg { width: 16px; height: 16px; }
+
+    /* Divisor horizontal en móvil */
+    .tab-divider {
+      width: auto;
+      height: 1px;
+      align-self: auto;
+      margin: 6px 8px;
+    }
+    .tab-btn.tab-logout {
+      font-size: 12px;
+    }
 
     /* TABLES con sticky: aprovechar todo el viewport */
     .table-scroll {
@@ -1050,14 +1085,14 @@
     }
     .gtbl {
       font-size: 8.5px;
-      min-width: 520px;
-      width: 520px;
+      min-width: 480px;
+      width: 480px;
       max-width: none;
       table-layout: fixed;
       border-collapse: separate;
       border-spacing: 0;
     }
-    .gtbl th, .gtbl td { padding: 3px 4px; }
+    .gtbl th, .gtbl td { padding: 3px 4px; box-sizing: border-box; }
 
     /* GANTT sticky primera columna: forzado para que funcione en móvil */
     .gtbl th.th-name,
@@ -1066,13 +1101,14 @@
       position: sticky !important;
       left: 0 !important;
       z-index: 2;
-      width: 105px !important;
-      min-width: 105px !important;
-      max-width: 105px !important;
+      width: 90px !important;
+      min-width: 90px !important;
+      max-width: 90px !important;
       font-size: 8px !important;
       padding: 4px 5px !important;
       line-height: 1.15;
       box-shadow: 2px 0 4px rgba(28,60,68,0.1);
+      box-sizing: border-box;
     }
     .gtbl thead th.th-name {
       z-index: 3;
@@ -1186,22 +1222,23 @@
     .dashboard-title h1 { font-size: 24px; padding-bottom: 5px; border-bottom-width: 2px; }
     .dashboard-title .dashboard-subtitle { font-size: 9px; }
     .dashboard-title .dashboard-meta { font-size: 8px; }
-    .container { padding: 0 8px 60px; }
+    .container { padding: 0 10px 60px; }
 
     .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 {
-      gap: 6px;
+      gap: 8px;
     }
-    .kpi { padding: 10px 8px; }
-    .kpi-value { font-size: 13px; }
-    .kpi-label { font-size: 8px; letter-spacing: 0.06em; }
-    .kpi-sub { font-size: 9px; }
-    .kpi.kpi-highlight .kpi-value { font-size: 20px; }
+    .kpi { padding: 14px 12px; }
+    .kpi-value { font-size: 16px; }
+    .kpi-label { font-size: 8.5px; letter-spacing: 0.08em; margin-bottom: 7px; }
+    .kpi-sub { font-size: 9.5px; }
+    .kpi.kpi-highlight { padding: 20px 16px; }
+    .kpi.kpi-highlight .kpi-value { font-size: 22px; }
 
     .tabs { min-width: 200px; max-width: 250px; }
 
     /* Tablas: más ajustadas a 380px */
-    .table-scroll { margin-left: -8px; margin-right: -8px; }
-    .gantt-wrap { margin-left: -8px; margin-right: -8px; }
+    .table-scroll { margin-left: -10px; margin-right: -10px; }
+    .gantt-wrap { margin-left: -10px; margin-right: -10px; }
 
     table.table-sticky-first thead th:first-child,
     table.table-sticky-first tbody td:first-child {
@@ -1213,15 +1250,190 @@
     }
 
     .gtbl th.th-name, .gtbl td.td-n {
-      width: 90px !important;
-      min-width: 90px !important;
-      max-width: 90px !important;
+      width: 78px !important;
+      min-width: 78px !important;
+      max-width: 78px !important;
       font-size: 7.5px !important;
     }
   }
+  /* ============== LOGIN OVERLAY ============== */
+  body.locked { overflow: hidden; }
+  body.locked .mj-topbar,
+  body.locked .dashboard-title,
+  body.locked .container,
+  body.locked .footer { display: none !important; }
+
+  .login-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+  }
+  body.locked .login-overlay { display: flex; }
+
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--white);
+    border-radius: 4px;
+    padding: 48px 40px 40px;
+    box-shadow: 0 10px 40px rgba(28,60,68,0.08);
+    border-top: 3px solid var(--teal);
+    text-align: center;
+  }
+  .login-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .login-logo img {
+    height: 52px;
+    width: auto;
+  }
+  .login-title {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .login-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--teal);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .login-card .login-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 28px;
+    line-height: 1.5;
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .login-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .login-input:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(28,60,68,0.08);
+  }
+  .login-input::placeholder {
+    color: var(--muted);
+    opacity: 0.6;
+  }
+  .login-btn {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+    font-family: inherit;
+  }
+  .login-btn:hover { background: #14272d; }
+  .login-btn:active { transform: scale(0.98); }
+  .login-error {
+    color: #B33A3A;
+    font-size: 12px;
+    margin-top: 4px;
+    min-height: 16px;
+    text-align: left;
+    padding-left: 2px;
+  }
+  .login-footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* Botón cerrar sesión en el footer */
+  .logout-btn {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 12px;
+    font-family: inherit;
+    transition: all 0.15s ease;
+  }
+  .logout-btn:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  @media (max-width: 480px) {
+    .login-card { padding: 36px 24px 28px; }
+    .login-logo img { height: 44px; }
+    .login-card h2 { font-size: 19px; }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- LOGIN OVERLAY -->
+<div class="login-overlay">
+  <div class="login-card">
+    <div class="login-logo">
+      <div id="login-logo-container"></div>
+      <div class="login-title">Portal de Cliente</div>
+    </div>
+    <h2>Acceso Privado</h2>
+    <p class="login-sub">Este portal contiene información confidencial. Por favor ingresa la clave de acceso.</p>
+    <form class="login-form" onsubmit="checkPassword(event)">
+      <input type="password" id="passwordInput" class="login-input" placeholder="Clave de acceso" autocomplete="off" autofocus>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="login-btn">Ingresar</button>
+    </form>
+    <div class="login-footer">
+      © 2021–2026 Mod Journey. Todos los derechos reservados.
+    </div>
+  </div>
+</div>
 
 <!-- TOPBAR institucional Mod Journey -->
 <div class="mj-topbar">
@@ -1272,6 +1484,11 @@
     <button class="tab-btn" onclick="showTab('adicionales', event)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
       Adicionales
+    </button>
+    <div class="tab-divider"></div>
+    <button class="tab-btn tab-logout" onclick="logout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Cerrar sesión
     </button>
   </div>
 
@@ -1792,13 +2009,80 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <div class="brand-footer">MOD JOURNEY SPA</div>
     <div class="copyright">© 2021–2026 Mod Journey. Todos los derechos reservados.</div>
   </div>
 
 </div>
 
 <script>
+  // ============ LOGIN SYSTEM ============
+  const ACCESS_KEY = 'ridley286';
+  const STORAGE_KEY = 'ridley_dashboard_auth';
+
+  // Verificar si ya está autenticado al cargar
+  (function initAuth() {
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === ACCESS_KEY) {
+        document.body.classList.remove('locked');
+      }
+    } catch (e) {
+      // localStorage no disponible, mantener bloqueado
+    }
+  })();
+
+  // Clonar el logo del topbar al overlay de login
+  document.addEventListener('DOMContentLoaded', function() {
+    const topbarLogo = document.querySelector('.mj-topbar-left img');
+    const loginContainer = document.getElementById('login-logo-container');
+    if (topbarLogo && loginContainer) {
+      const cloned = topbarLogo.cloneNode(true);
+      loginContainer.appendChild(cloned);
+    }
+    // Focus en el input de password
+    const passInput = document.getElementById('passwordInput');
+    if (passInput && document.body.classList.contains('locked')) {
+      setTimeout(() => passInput.focus(), 100);
+    }
+  });
+
+  function checkPassword(event) {
+    event.preventDefault();
+    const input = document.getElementById('passwordInput');
+    const errorEl = document.getElementById('loginError');
+    const value = input.value.trim().toLowerCase();
+
+    if (value === ACCESS_KEY) {
+      try {
+        localStorage.setItem(STORAGE_KEY, ACCESS_KEY);
+      } catch (e) { /* ignore */ }
+      document.body.classList.remove('locked');
+      errorEl.textContent = '';
+    } else {
+      errorEl.textContent = 'Clave incorrecta. Inténtalo nuevamente.';
+      input.value = '';
+      input.focus();
+      // Shake animation
+      input.style.animation = 'none';
+      setTimeout(() => {
+        input.style.animation = 'shake 0.3s ease-in-out';
+      }, 10);
+    }
+    return false;
+  }
+
+  function logout() {
+    if (confirm('¿Cerrar sesión? Tendrás que ingresar la clave nuevamente.')) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) { /* ignore */ }
+      document.body.classList.add('locked');
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('loginError').textContent = '';
+      setTimeout(() => document.getElementById('passwordInput').focus(), 100);
+    }
+  }
+
+  // ============ TABS ============
   function showTab(tabId, evt) {
     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
