@@ -125,6 +125,9 @@
     color: var(--teal);
     line-height: 1;
     margin: 0;
+    display: inline-block;
+    border-bottom: 3px solid var(--beige);
+    padding-bottom: 8px;
   }
   .dashboard-title .dashboard-subtitle {
     font-size: 12px;
@@ -832,36 +835,73 @@
 
   @media (max-width: 720px) {
     .mj-topbar {
-      padding: 12px 16px;
+      padding: 12px 14px;
       position: relative;
     }
     .mj-topbar-left img { height: 36px; }
     /* Mostrar hamburger en topbar SOLO en móvil — solo ícono, sin label */
     .mj-topbar-right-hamburger { display: flex; }
     .mj-topbar-right-hamburger .current-tab-label { display: none; }
-    .dashboard-title { padding: 0 16px; margin-bottom: 14px; }
-    .dashboard-title h1 { font-size: 30px; }
+    .dashboard-title { padding: 0 14px; margin-bottom: 14px; }
+    .dashboard-title h1 { font-size: 28px; padding-bottom: 6px; border-bottom-width: 2.5px; }
     .dashboard-title .dashboard-subtitle { font-size: 10px; }
-    .container { padding: 0 8px; }
-    .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .kpis.kpis-1 { grid-template-columns: 1fr; }
-    .kpi.kpi-highlight { padding: 20px 18px; }
-    .kpi.kpi-highlight .kpi-value { font-size: 22px; }
-    .kpi-value { font-size: 18px; }
+    .dashboard-title .dashboard-meta { font-size: 9px; }
 
-    /* KPIs móvil: ajustes para que el sub no rompa el layout */
-    .kpi { padding: 16px 14px; }
-    .kpi-label { font-size: 9px; letter-spacing: 0.12em; margin-bottom: 6px; }
-    .kpi-value { font-size: 20px; }
-    .kpi-unit { font-size: 11px; }
-    .kpi-sub {
+    /* CONTAINER: aprovechar al máximo el viewport */
+    .container { padding: 0 10px 60px; }
+
+    /* KPIs: 2 columnas con gap pequeño */
+    .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .kpis.kpis-1 { grid-template-columns: 1fr; }
+
+    /* KPI highlight (saldo) */
+    .kpi.kpi-highlight { padding: 18px 14px; }
+    .kpi.kpi-highlight .kpi-value {
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi.kpi-highlight .kpi-unit { font-size: 12px; }
+    .kpi.kpi-highlight .kpi-sub {
       font-size: 10px;
+      line-height: 1.4;
+    }
+
+    /* KPI normales: tamaño que cabe en 2 cols sin cortar */
+    .kpi {
+      padding: 12px 10px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .kpi-label {
+      font-size: 8.5px;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .kpi-value {
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+      font-feature-settings: "tnum";
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .kpi-unit { font-size: 10px; }
+    .kpi-sub {
+      font-size: 9.5px;
       white-space: normal;
       overflow-wrap: break-word;
       word-break: normal;
       hyphens: none;
-      line-height: 1.4;
-      margin-top: 6px;
+      line-height: 1.35;
+      margin-top: 5px;
     }
 
     /* Cobro cards: evitar desborde del "week" largo */
@@ -918,86 +958,138 @@
     }
     .tab-btn svg { width: 16px; height: 16px; }
 
-    /* TABLES sin sticky: scroll horizontal */
-    table:not(.table-sticky-first) {
+    /* TABLES con sticky: aprovechar todo el viewport */
+    .table-scroll {
+      width: calc(100vw - 0px);
+      max-width: calc(100vw - 0px);
+      margin-left: -10px;
+      margin-right: -10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    table:not(.table-sticky-first):not(.gtbl) {
       display: block;
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
       font-size: 11px;
     }
-    /* Tablas con sticky: mantienen layout table, scroll en wrapper */
+
+    /* Tablas con sticky: layout table NO fixed (causa solapamiento) */
     table.table-sticky-first {
       display: table;
       font-size: 10px;
-      min-width: 580px;
-      width: 580px;
+      min-width: 560px;
+      width: 560px;
       max-width: none;
+      border-collapse: separate;
+      border-spacing: 0;
     }
     table.table-sticky-first thead th,
     table.table-sticky-first tbody td {
-      padding: 7px 8px;
+      padding: 8px 9px;
       white-space: nowrap;
+      background: var(--white);
     }
+    table.table-sticky-first thead th {
+      background: var(--bg);
+    }
+
+    /* STICKY first column: forzar con todos los soportes */
     table.table-sticky-first thead th:first-child,
     table.table-sticky-first tbody td:first-child {
-      min-width: 85px !important;
-      max-width: 95px !important;
-      width: 90px !important;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      left: 0 !important;
+      z-index: 2;
+      background: var(--white) !important;
+      box-shadow: 2px 0 4px rgba(28,60,68,0.08);
+      min-width: 82px !important;
+      max-width: 90px !important;
+      width: 85px !important;
       font-size: 9.5px;
     }
-    .table-scroll {
-      width: calc(100% + 16px);
-      max-width: calc(100% + 16px);
-      margin-left: -8px;
-      margin-right: -8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    table.table-sticky-first thead th:first-child {
+      z-index: 3;
+      background: var(--bg) !important;
     }
-    table thead th, table tbody td { padding: 8px 10px; }
+    table.table-sticky-first tbody tr:hover td {
+      background: #FAF6F2 !important;
+    }
+
+    table thead th, table tbody td { padding: 6px 8px; }
     .section-title { font-size: 13px; }
     .section-subtitle { font-size: 11px; }
 
-    /* GANTT en móvil (correcta clase) */
+    /* GANTT en móvil — sticky reforzado */
     .gantt-wrap {
       overflow-x: auto;
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
-      width: calc(100% + 16px);
-      max-width: calc(100% + 16px);
-      margin-left: -8px;
-      margin-right: -8px;
+      width: calc(100vw - 0px);
+      max-width: calc(100vw - 0px);
+      margin-left: -10px;
+      margin-right: -10px;
+      padding-left: 0;
+      padding-right: 0;
       position: relative;
     }
     .gantt-wrap::after {
-      content: '→ desliza';
+      content: '→ desliza horizontalmente';
       display: block;
       text-align: right;
       font-size: 9px;
       color: var(--muted);
-      letter-spacing: 0.1em;
-      padding: 4px 6px 0;
+      letter-spacing: 0.08em;
+      padding: 4px 10px 0;
     }
     .gtbl {
-      font-size: 9px;
-      min-width: 640px;
-      width: 640px;
+      font-size: 8.5px;
+      min-width: 520px;
+      width: 520px;
       max-width: none;
+      table-layout: fixed;
+      border-collapse: separate;
+      border-spacing: 0;
     }
-    .gtbl th, .gtbl td { padding: 4px 6px; }
+    .gtbl th, .gtbl td { padding: 3px 4px; }
+
+    /* GANTT sticky primera columna: forzado para que funcione en móvil */
     .gtbl th.th-name,
     .gtbl td.td-n {
-      width: 125px !important;
-      min-width: 125px !important;
-      max-width: 125px !important;
-      font-size: 8.5px !important;
-      padding: 5px 6px !important;
+      position: -webkit-sticky !important;
+      position: sticky !important;
+      left: 0 !important;
+      z-index: 2;
+      width: 105px !important;
+      min-width: 105px !important;
+      max-width: 105px !important;
+      font-size: 8px !important;
+      padding: 4px 5px !important;
       line-height: 1.15;
+      box-shadow: 2px 0 4px rgba(28,60,68,0.1);
+    }
+    .gtbl thead th.th-name {
+      z-index: 3;
+      background: var(--bg) !important;
+    }
+    .gtbl tbody td.td-n {
+      background: var(--white) !important;
+    }
+    .gtbl tr.phase-row td.td-n {
+      background: #DFE5E7 !important;
+    }
+    .gtbl tr.sub-row td.td-n {
+      background: var(--white) !important;
     }
     .gtbl .cell-text {
-      font-size: 8.5px;
+      font-size: 8px;
       line-height: 1.2;
       max-height: 3.6em;
+      overflow: hidden;
     }
 
     /* Footer: stack vertical */
@@ -1018,14 +1110,41 @@
 
   /* iPhone SE / 5 — ajustes para 380px o menos */
   @media (max-width: 380px) {
-    .dashboard-title h1 { font-size: 26px; }
+    .dashboard-title h1 { font-size: 24px; padding-bottom: 5px; border-bottom-width: 2px; }
     .dashboard-title .dashboard-subtitle { font-size: 9px; }
     .dashboard-title .dashboard-meta { font-size: 8px; }
-    .container { padding: 0 10px; }
-    .kpi { padding: 14px 12px; }
-    .kpi-value { font-size: 18px; }
+    .container { padding: 0 8px 60px; }
+
+    .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 {
+      gap: 6px;
+    }
+    .kpi { padding: 10px 8px; }
+    .kpi-value { font-size: 13px; }
+    .kpi-label { font-size: 8px; letter-spacing: 0.06em; }
     .kpi-sub { font-size: 9px; }
+    .kpi.kpi-highlight .kpi-value { font-size: 20px; }
+
     .tabs { min-width: 200px; max-width: 250px; }
+
+    /* Tablas: más ajustadas a 380px */
+    .table-scroll { margin-left: -8px; margin-right: -8px; }
+    .gantt-wrap { margin-left: -8px; margin-right: -8px; }
+
+    table.table-sticky-first thead th:first-child,
+    table.table-sticky-first tbody td:first-child {
+      min-width: 70px !important;
+      max-width: 80px !important;
+      width: 75px !important;
+      font-size: 9px;
+      padding: 5px 6px !important;
+    }
+
+    .gtbl th.th-name, .gtbl td.td-n {
+      width: 90px !important;
+      min-width: 90px !important;
+      max-width: 90px !important;
+      font-size: 7.5px !important;
+    }
   }
 </style>
 </head>
