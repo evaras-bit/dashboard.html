@@ -37,14 +37,14 @@
   }
 
   .container {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 24px 80px;
   }
 
   /* TOPBAR institucional Mod Journey — estilo Awad */
   .mj-topbar {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 14px 24px 0;
     display: flex;
@@ -113,7 +113,7 @@
 
   /* TÍTULO PRINCIPAL DASHBOARD */
   .dashboard-title {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto 32px;
     padding: 0 24px;
     text-align: center;
@@ -250,7 +250,9 @@
     gap: 12px;
     margin-bottom: 32px;
   }
+  .kpis > .kpi { min-width: 0; }
   .kpis.kpis-5 { grid-template-columns: repeat(5, 1fr); }
+  .kpis.kpis-5 .kpi-value { font-size: 22px; }
   .kpis.kpis-3 { grid-template-columns: repeat(3, 1fr); }
   .kpis.kpis-2 { grid-template-columns: repeat(2, 1fr); }
   .kpis.kpis-1 { grid-template-columns: 1fr; }
