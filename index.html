@@ -833,7 +833,7 @@
 
   /* HAMBURGER MENU - oculto por defecto en desktop */
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
     .mj-topbar {
       padding: 12px 14px;
       position: relative;
@@ -1106,6 +1106,77 @@
       padding: 14px;
       font-size: 11px;
     }
+  }
+
+  /* TABLET / iPad (601-900px): override de tamaños más generosos que móvil */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .container { padding: 0 20px 60px; }
+    .dashboard-title h1 { font-size: 36px; padding-bottom: 8px; border-bottom-width: 3px; }
+    .dashboard-title .dashboard-subtitle { font-size: 12px; }
+    .dashboard-title .dashboard-meta { font-size: 10px; }
+
+    /* KPIs: 3 columnas en iPad (no 2) */
+    .meta-grid, .kpis, .kpis.kpis-5, .kpis.kpis-3, .kpis.kpis-2 {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .kpis.kpis-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .kpi { padding: 18px 16px; }
+    .kpi-label { font-size: 10px; letter-spacing: 0.10em; }
+    .kpi-value { font-size: 22px; letter-spacing: -0.01em; }
+    .kpi-unit { font-size: 12px; }
+    .kpi-sub { font-size: 11px; }
+
+    .kpi.kpi-highlight { padding: 24px 22px; }
+    .kpi.kpi-highlight .kpi-value { font-size: 32px; }
+    .kpi.kpi-highlight .kpi-sub { font-size: 12px; }
+
+    /* Tabs dropdown un poco más grande en iPad */
+    .tabs { min-width: 260px; max-width: 320px; }
+    .tab-btn { font-size: 14px; padding: 14px 16px; }
+
+    /* Tablas: usar todo el viewport de iPad */
+    .table-scroll, .gantt-wrap {
+      width: calc(100vw - 0px);
+      max-width: calc(100vw - 0px);
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* Tablas sticky: tamaños más generosos en iPad */
+    table.table-sticky-first {
+      font-size: 12px;
+      min-width: 100%;
+    }
+    table.table-sticky-first thead th,
+    table.table-sticky-first tbody td {
+      padding: 10px 12px;
+    }
+    table.table-sticky-first thead th:first-child,
+    table.table-sticky-first tbody td:first-child {
+      min-width: 100px !important;
+      max-width: 120px !important;
+      width: 110px !important;
+      font-size: 11.5px;
+    }
+
+    /* Gantt en iPad */
+    .gtbl {
+      font-size: 11px;
+      min-width: 100%;
+    }
+    .gtbl th, .gtbl td { padding: 6px 7px; }
+    .gtbl th.th-name, .gtbl td.td-n {
+      width: 140px !important;
+      min-width: 140px !important;
+      max-width: 140px !important;
+      font-size: 10px !important;
+      padding: 7px 10px !important;
+    }
+    .gtbl .cell-text { font-size: 10px; }
   }
 
   /* iPhone SE / 5 — ajustes para 380px o menos */
@@ -1659,10 +1730,6 @@
         <tr><td class="folio">FAC-168</td><td>17/04/2026</td><td>EEPP 130 — parcial 2 <span class="badge base">Base</span></td><td class="num">4.364.067</td><td class="num">829.173</td><td class="num">5.193.240</td><td class="num">130,00</td></tr>
         <tr><td class="folio">FAC-169</td><td>17/04/2026</td><td>Adicional 106,31 UF <span class="badge adicional">Adic.</span></td><td class="num">3.568.784</td><td class="num">678.069</td><td class="num">4.246.853</td><td class="num">106,31</td></tr>
         <tr><td class="folio">FAC-174</td><td>29/04/2026</td><td>EEPP 130 — parcial 3 (375 UF) <span class="badge base">Base</span></td><td class="num">12.634.664</td><td class="num">2.400.586</td><td class="num">15.035.250</td><td class="num">375,00</td></tr>
-
-        <tr class="subtotal-row"><td colspan="3">Subtotal facturas base</td><td class="num">209.297.333</td><td class="num">39.766.493</td><td class="num">249.063.826</td><td class="num">6.286,76</td></tr>
-        <tr class="subtotal-row"><td colspan="3">Subtotal facturas adicionales</td><td class="num">9.551.202</td><td class="num">1.814.728</td><td class="num">11.365.930</td><td class="num">285,25</td></tr>
-        <tr class="total-row"><td colspan="3">TOTAL FACTURADO</td><td class="num">218.848.535</td><td class="num">41.581.221</td><td class="num">260.429.756</td><td class="num">6.572,01</td></tr>
       </tbody>
     </table>
     </div>
@@ -1691,7 +1758,6 @@
         <tr><td class="folio">FAC-164</td><td>27/02/2026</td><td>Pendiente Adicional Nov25</td><td class="num">1.421.839</td><td class="num">270.150</td><td class="num">1.691.989</td><td class="num">42,53</td></tr>
         <tr><td class="folio">FAC-164</td><td>27/02/2026</td><td>Quincho según EETT</td><td class="num">4.560.579</td><td class="num">866.510</td><td class="num">5.427.089</td><td class="num">136,41</td></tr>
         <tr><td class="folio">FAC-169</td><td>17/04/2026</td><td>Adicionales 106,31 UF</td><td class="num">3.568.784</td><td class="num">678.069</td><td class="num">4.246.853</td><td class="num">106,31</td></tr>
-        <tr class="total-row"><td colspan="3">TOTAL FACTURADO ADICIONALES</td><td class="num">9.551.202</td><td class="num">1.814.729</td><td class="num">11.365.931</td><td class="num">285,25</td></tr>
       </tbody>
     </table>
     </div>
@@ -1713,7 +1779,6 @@
       <tbody>
         <tr><td class="folio">FAC-164</td><td>27/02/2026</td><td>C63</td><td>Transferencia exacta</td><td class="num">7.119.077</td><td class="num">178,94</td><td><span class="badge ok">Exacto</span></td></tr>
         <tr><td class="folio">FAC-169</td><td>17/04/2026</td><td>C65</td><td>Transferencia exacta</td><td class="num">4.246.853</td><td class="num">106,31</td><td><span class="badge ok">Exacto</span></td></tr>
-        <tr class="total-row"><td colspan="4">TOTAL PAGADO ADICIONALES</td><td class="num">11.365.930</td><td class="num">285,25</td><td>—</td></tr>
       </tbody>
     </table>
     </div>
