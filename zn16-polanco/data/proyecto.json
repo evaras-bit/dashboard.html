@@ -1,12 +1,12 @@
 {
   "meta": {
-    "proyecto": "Cargando...",
+    "proyecto": "ZN16 Polanco",
     "cliente": "",
-    "estado": "",
+    "estado": "Sin datos",
     "fecha_entrega": null,
     "semanas_restantes": null,
     "dias_restantes": null,
-    "ultima_actualizacion": null
+    "ultima_actualizacion": "2026-05-18T22:42:25.669Z"
   },
   "resumen": {},
   "gantt": {
