@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "proyecto": "Cargando...",
+    "cliente": "",
+    "estado": "",
+    "fecha_entrega": null,
+    "semanas_restantes": null,
+    "dias_restantes": null,
+    "ultima_actualizacion": null
+  },
+  "resumen": {},
+  "gantt": { "meses": [], "partidas": [] },
+  "estados_de_pago": [],
+  "facturas_base": [],
+  "facturas_adicionales": [],
+  "cartola": { "resumen": {}, "movimientos": [] }
+}
