@@ -1,7 +1,7 @@
 <html lang="es"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal de Cliente — Ridley SPA | Mod Journey</title>
+<title>Portal de Cliente | Mod Journey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -1548,19 +1548,27 @@
 <script>
 
   // ============ LOGIN SYSTEM ============
-  const ACCESS_KEY = 'ridley286';
-  const STORAGE_KEY = 'ridley_dashboard_auth';
+  // Detectar slug del cliente desde la URL: /ad286-ridley/dashboard/ → 'ad286-ridley'
+  var _slug = (window.location.pathname.split('/').filter(Boolean)[0] || 'default');
+  var _accessKey  = null;
+  var STORAGE_KEY = _slug + '_dashboard_auth';
 
-  // Verificar si ya está autenticado al cargar
+  // Cargar config del cliente (contraseña), luego verificar auth
   (function initAuth() {
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === ACCESS_KEY) {
-        document.body.classList.remove('locked');
-        fetchData();
-      }
-    } catch (e) {
-      // localStorage no disponible, mantener bloqueado
-    }
+    fetch('/' + _slug + '/data/config.json')
+      .then(function(r) { return r.ok ? r.json() : Promise.reject('no config'); })
+      .then(function(cfg) {
+        _accessKey = (cfg.password || '').toLowerCase();
+        try {
+          if (localStorage.getItem(STORAGE_KEY) === _accessKey) {
+            document.body.classList.remove('locked');
+            fetchData();
+          }
+        } catch(e) {}
+      })
+      .catch(function() {
+        // Sin config.json — mantener bloqueado
+      });
   })();
 
   // Clonar el logo del topbar al overlay de login
@@ -1584,9 +1592,9 @@
     const errorEl = document.getElementById('loginError');
     const value = input.value.trim().toLowerCase();
 
-    if (value === ACCESS_KEY) {
+    if (_accessKey && value === _accessKey) {
       try {
-        localStorage.setItem(STORAGE_KEY, ACCESS_KEY);
+        localStorage.setItem(STORAGE_KEY, _accessKey);
       } catch (e) { /* ignore */ }
       document.body.classList.remove('locked');
       errorEl.textContent = '';
@@ -1705,7 +1713,7 @@
   var _dashData = null;
 
   function fetchData() {
-    fetch('data/proyecto.json')
+    fetch('/' + _slug + '/data/proyecto.json')
       .then(function(r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
